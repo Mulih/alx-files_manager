@@ -5,6 +5,7 @@ const DB_PORT = process.env.DB_PORT || 27017;
 const DB_DATABASE = process.env.DB_DATABASE || 'files_manager';
 const url = `mongodb://${DB_HOST}:${DB_PORT}/${DB_DATABASE}`;
 
+
 /**
  * Class for performing operations with Mongo service
  */
@@ -36,15 +37,16 @@ class DBClient {
    * @returns {Promise<Number>}
    */
   async nbUsers() {
-    const numberOfUsers = this.usersCollection.countDocuments();
-    return numberOfUsers
+    const numberOfUsers = await this.usersCollection.countDocuments();
+    return numberOfUsers;
   }
 
   /**
    * Returns the number of files
    */
   async nbFiles() {
-    const numberOfFiles = this.usersCollection.countDocuments();
+    const numberOfFiles = await this.filesCollection.countDocuments();
+
     return numberOfFiles;
   }
 }
