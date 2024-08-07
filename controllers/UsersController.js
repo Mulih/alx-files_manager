@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 const sha1 = require('sha1');
 const Queue = require('bull/lib/queue');
 const dbClient = require('../utils/db');
