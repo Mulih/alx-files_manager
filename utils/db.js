@@ -9,23 +9,42 @@ const url = `mongodb://${DB_HOST}:${DB_PORT}/${DB_DATABASE}`;
 /**
  * Class for performing operations with Mongo service
  */
-class DBClient {
+
+export class DBClient {
+  /**
+   * Constructor for the DBClient class.
+   * When an instance of this class is created, it establishes a connection to the MongoDB database.
+   * The connection is established using the URL provided in the environment variables or the default values.
+   * If the connection is successful, it assigns the database, users collection, and files collection to the instance variables.
+   * If the connection fails, it logs the error message and sets the db variable to false.
+   */
   constructor() {
-    MongoClient.connect(url, { useUnifiedTopology: true }, (err, client) => {
-      if (!err) {
-        // console.log(`Connected successfullyto server`);
-        this.db = client.db(DB_DATABASE);
+    // Create a new instance of the MongoClient class with the provided URL and options
+    this.client = new MongoClient(url, { useUnifiedTopology: true });
+
+    // Connect to the MongoDB database using the connect method
+    this.client.connect()
+      .then(() => {
+        // If the connection is successful, assign the database, users collection, and files collection to the instance variables
+
+        // Get the database specified in the URL
+        this.db = this.client.db(DB_DATABASE);
+
+        // Get the users collection from the database
         this.usersCollection = this.db.collection('users');
+
+        // Get the files collection from the database
         this.filesCollection = this.db.collection('files');
-      } else {
+      })
+      .catch((err) => {
+        // If the connection fails, log the error message and set the db variable to false
         console.log(err.message);
         this.db = false;
-      }
-    });
+      });
   }
-  
+
   /**
-   * It checks if the connection to Redis is Alive.
+   * It checks if the connection to MongoDB is Alive.
    * @return true if connection is alive of false if not.
    */
   isAlive() {
