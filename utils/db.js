@@ -56,17 +56,26 @@ export class DBClient {
    * @returns {Promise<Number>}
    */
   async nbUsers() {
-    const numberOfUsers = await this.usersCollection.countDocuments();
-    return numberOfUsers;
+    try {
+      const numberOfUsers = await this.usersCollection.countDocuments();
+      return numberOfUsers;
+    } catch (error) {
+      console.log(error.message);
+      throw error;
+    }
   }
 
   /**
    * Returns the number of files
    */
   async nbFiles() {
-    const numberOfFiles = await this.filesCollection.countDocuments();
-
-    return numberOfFiles;
+    try {
+      const numberOfFiles = await this.filesCollection.countDocuments();
+      return numberOfFiles;
+    } catch (error) {
+      console.log(error.message);
+      throw error;
+    }
   }
 }
 
