@@ -5,7 +5,6 @@ const DB_PORT = process.env.DB_PORT || 27017;
 const DB_DATABASE = process.env.DB_DATABASE || 'files_manager';
 const url = `mongodb://${DB_HOST}:${DB_PORT}/${DB_DATABASE}`;
 
-
 /**
  * Class for performing operations with Mongo service
  */
@@ -14,8 +13,10 @@ export class DBClient {
   /**
    * Constructor for the DBClient class.
    * When an instance of this class is created, it establishes a connection to the MongoDB database.
-   * The connection is established using the URL provided in the environment variables or the default values.
-   * If the connection is successful, it assigns the database, users collection, and files collection to the instance variables.
+   * The connection is established using the URL provided in the environment variables
+   * or the default values.
+   * If the connection is successful, it assigns the database,
+   * users collection, and files collection to the instance variables.
    * If the connection fails, it logs the error message and sets the db variable to false.
    */
   constructor() {
@@ -25,7 +26,8 @@ export class DBClient {
     // Connect to the MongoDB database using the connect method
     this.client.connect()
       .then(() => {
-        // If the connection is successful, assign the database, users collection, and files collection to the instance variables
+        // If the connection is successful,
+      // assign the database, users collection, and files collection to the instance variables
 
         // Get the database specified in the URL
         this.db = this.client.db(DB_DATABASE);
